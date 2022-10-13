@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Вход/Регистрация</title>
+
+  <link rel="stylesheet" href="/static/login/css/style.css">
+
+</head>
+
+<body>
+    <div class="wrapper-container">
+      <div class="buttons">
+          <a class="btn" href="#" data-form="#auth_form">Авторизация</a>
+          <a class="btn" href="#" data-form="#register_form">Регистрация</a>
+      </div>
+      <form action="{% url 'account:login' %}?action=login" method="post" enctype="multipart/form-data" id="auth_form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-envelope-open"></i> 
+                    <input class="form-control" placeholder="Имя пользователя*" type="text" name="username" value="{{ form.username.value|default:'' }}">
+                    {{ form.username.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-lock"></i> 
+                    <input class="form-control" placeholder="Пароль*" type="password" name="password">
+                    {{ form.password.errors }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <button type="submit">
+                    Войти
+                </button>
+            </div>
+        </div>
+      </form>
+      <form action="{% url 'account:login' %}?action=registration" method="post" enctype="multipart/form-data" id="register_form" style="display:none">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input class="form-control" placeholder="Имя*" type="text" name="username" value="{{ form.username.value|default:'' }}">
+                    {{ form.username.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-envelope-open"></i> 
+                    <input class="form-control" placeholder="Email*" type="email" name="email" value="{{ form.email.value|default:'' }}">
+                    {{ form.email.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-lock"></i> 
+                    <input class="form-control" placeholder="Пароль*" type="password" name="password1">
+                    {{ form.password1.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <i class="fas fa-lock"></i> 
+                    <input class="form-control" placeholder="Повторить пароль*" type="password" name="password2">
+                    {{ form.password2.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <button type="submit">
+                    Зарегистрироваться
+                </button>
+            </div>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+      const btns = document.querySelectorAll('.buttons > a');
+
+      btns.forEach((el) => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          btns.forEach((el1) => {
+            document.querySelector(el1.dataset.form).style.display = 'none';
+          });
+          document.querySelector(el.dataset.form).style.display = '';
+        })
+      });
+
+      const action = new URLSearchParams(location.search).get('action');
+      if (action === 'registration') {
+        document.querySelector('#auth_form').style.display = 'none';
+        document.querySelector('#register_form').style.display = '';
+      }
+    </script>
+</body>
+
+</html>

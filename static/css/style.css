@@ -1,0 +1,26 @@
+.logo {
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 10px;
+}
+
+.nav li {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.menu {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+#map {
+    height: 500px;
+}
